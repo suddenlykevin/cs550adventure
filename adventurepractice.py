@@ -13,7 +13,7 @@ def start():
 		print("\nI'll have you know I come from an affluent family. Higher.")
 		start()
 	elif int(guess) == answer: # could use "else"
-		print("\nRight on the money, sugar mama.")
+		print("\nRight on the money, lil' human. But I've got room for one more!")
 
 answer = random.randint(0,60)
 start()
