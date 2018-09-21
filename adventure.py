@@ -13,6 +13,7 @@ name = None # global variable that can be used in any function (to refer to play
 countdown = 45 # player's ticking timer mechanic
 location = "spawn" # current location
 locations = ["spawn", "armory"] # array of possible locations
+teamSize = 0
 
 def start(): # setting the stage and call to action
 	global name
@@ -83,12 +84,12 @@ def start(): # setting the stage and call to action
 
 def teamUp(): # first call to action (mandatory yes.)
 	teamYes = input("\n\n[You immediately recognize the voice. It's the Sandman! He has come for revenge! Is it finally time to assemble the team? (yes or no)] \n>>> ")
-	if teamYes == "yes" or "Yes":
+	if teamYes == "yes":
 		time.sleep(2)
 		armoryScene()
-	elif teamYes == "no" or "No":
+	elif teamYes == "no":
 		time.sleep(2)
-		print("[FOOL]")
+		print("[You decide to go alone]")
 	else:
 		print("[that's not a valid command. try yes or no.]")
 		teamUp()
@@ -105,7 +106,7 @@ def armoryScene(): #anything that happens in the armory
 	global countdown, location, locations # calling global variables to be edited
 	location = locations[1]
 	countdown -= 2
-	print("""\n         *                 *                  *              *
+	print("""[THE ARMORY]\n         *                 *                  *              *
                                                       *             *
                         *            *                             ___
   *               *                                          |     | |
@@ -121,5 +122,27 @@ def armoryScene(): #anything that happens in the armory
 ____0_____0__\\|/__@@@@__@@@__________|_\\|/__|___\\|/__\\|/___________|_|_
 [You arrive at the armory short of breath, everyone is already getting ready to go]
 [You have """+str(countdown)+" minutes remaining.]") # Art by Donovan Bake https://www.asciiart.eu/space/spaceships
+	time.sleep(2)
+	choice = input("\n[What would you like to do?\n1: Assemble the team\n2: Gather supplies\n3: Talk to the locals]\n>>> ")
+	time.sleep(2)
+	while
+	if choice == "1":
+		teamMembers()
+	elif choice == "2":
+		suppliesGather()
+	elif choice == "3":
+		talkLocals()
+	else:
+		print("plea")
+
+def teamMembers():
+	global teamSize
+	if teamSize>0:
+		choice = input("""[Choose another team member.""")
+	else:
+		choice = input("""[Choose a team member.""")
+
+def check(choice,a,b):
+	while 
 
 start() # the adventure begins!
