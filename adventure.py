@@ -611,7 +611,7 @@ def boulevard(): # Green Day! Can separate player from team
 	print("[You come across a sign: You may only press this button if you have 1 or more teammates.]")
 	if teamSize>=1:
 		print("[Press the button?]")
-		choice = checkNum("yes", "no")
+		choice = check("yes", "no")
 		time.sleep(0.5)
 		if choice == "yes":
 			print("\n[A small entrance opens up beneath you, forever separating you from your team. You land at a fork in the road.]")
