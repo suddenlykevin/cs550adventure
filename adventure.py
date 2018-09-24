@@ -7,9 +7,10 @@
 # This led to many NPCs and optional items that resulted in different endings or interactions.
 # It also resulted in the bulk of the programming being scripting, which is how I ended up with
 # so many lines of code. I also intermittently use time delays to make the game feel more natural,
-# which contributes to the size of the code. The story is inspired by the weirdness of dreams. 
-# For the story, I basically decided I wanted to make it as off-beat as possible, where player statistics 
-# and NPC interactions changed on the fly. I also wanted some kind of twist so:
+# which contributes to the size of the code. I tried my best not to repeat myself. (DRY)
+# The story is inspired by the weirdness of dreams. For the story, I basically decided I wanted 
+# to make it as off-beat as possible, where player statistics and NPC interactions changed on the fly. 
+# I also wanted some kind of twist so:
 #
 # [ SPOILERS ]
 # I made the final boss the victim (which I know is cliche, but hmm.)
@@ -34,7 +35,7 @@
 #	exit program: https://stackoverflow.com/questions/48129942/python-restart-program
 #	restart self: https://stackoverflow.com/questions/11329917/restart-python-script-from-within-itself
 #	catch file name changes: https://stackoverflow.com/questions/32536129/python-try-except-oserror-errno-2, https://docs.python.org/2/library/os.path.html#os.path.isfile
-#	playtesters: 
+#	playtesters: Anan Aramthanapon
 # On my Honor, I have neither given nor received unauthorized aid.
 
 import random # for RNG game mechanics
@@ -275,7 +276,7 @@ def suppliesGather(): # Where the player chooses his item of choice and can inte
 		print("[There are three items in front of you. You only have room for one. Which do you take? \n1: The Sand Bag \n2: The Red Brick \n3: The Super Soaker]")
 		itemOfChoice = checkNum(1,3)
 		time.sleep(1)
-		print("\n[You take the "+items[itemOfChoice-1]+". Now what? \n1: Return to Armory \n2: Keep looking]")
+		print("\n[You take the "+items[itemOfChoice-1]+". Now what? \n1: Return to the Armory \n2: Keep looking]")
 		choice = checkNum(1,2)
 		if choice == 1:
 			time.sleep(0.7)
@@ -288,7 +289,7 @@ def talkLocals(): # interactions with most NPCs take place here for advice and c
 	time.sleep(0.7)
 	countdown -= 1
 	watchLook()
-	print("[Who would you like to speak to? \n1: Pupnout, The Name Rater \n2: Kraklin', The Janitor \n3: Fitibis, The Cartographer \n4: Quippy, the Living Peanut \n5: Dirtcheap, The Programmer]")
+	print("\n[Who would you like to speak to? \n1: Pupnout, The Name Rater \n2: Kraklin', The Janitor \n3: Fitibis, The Cartographer \n4: Quippy, the Living Peanut \n5: Dirtcheap, The Programmer]")
 	choice = checkNum(1,5)
 	time.sleep(1)
 	if choice == 1:
@@ -418,9 +419,9 @@ def roadFork(rep): # a way to induce choice between paths, rep indicates which c
 		print("1: \"Boulevard of Broken Dreams\"\n2: \"The Yellow Brick Road\"]")
 		countdown += 1
 		time.sleep(1)
+		choice = checkNum(1,2)
 		print("\n\n")
 		watchLook()
-		choice = checkNum(1,2)
 		if choice == 1:
 			boulevard()
 		else:
@@ -429,9 +430,9 @@ def roadFork(rep): # a way to induce choice between paths, rep indicates which c
 		print("1: \"Rainbow Road\" \n2: \"N Elm Street\"]")
 		countdown -= 4
 		time.sleep(1)
+		choice = checkNum(1,2)
 		print("\n\n")
 		watchLook()
-		choice = checkNum(1,2)
 		if choice == 1:
 			rainbowRoad()
 		else:
@@ -676,7 +677,7 @@ def rainbowRoad(): # rainbow road to skip to boss battle or end the game.
 	time.sleep(1)
 	print("[Mariokarts speed past you. You are unable to keep your bearings and fall off the edge.]")
 	time.sleep(1)
-	print("[Lakitu appears to save the day!]\n\nHey there,"+name+"! Need a hand?")
+	print("[Lakitu appears to save the day!]\n\nHey there, "+name+"! Need a hand?")
 	time.sleep(1)
 	print("[Lakitu gives you three options:\n1: Proceed to the final fight in exchange for 2HP \n2: Proceed on this road for free. \n3: Attempt a riddle to be released from the dream world]")
 	choice = checkNum(1,3)
@@ -789,7 +790,7 @@ def finalFight(): # Sandman initiating battle, Gag power activates
 
 def attackMan(value): # attack loop. Once attack begins, it doesn't stop until Sandman is near death.
 	global sandmanHP, HP, countdown, teamSize
-	time.sleep(0.7)
+	time.sleep(2)
 	print("\n\n")
 	countdown-=4
 	watchLook()
@@ -799,24 +800,24 @@ def attackMan(value): # attack loop. Once attack begins, it doesn't stop until S
 	else:
 		print()
 		print("[The Sandman strikes back!]\n")
-		time.sleep(0.7)
+		time.sleep(2)
 		choice = 1
 		if teamSize == 3:
-			print("\"I'VE GOT YOU NOW, "+name+"!\" \n\n[But the Sandman misses, instead killing "+member3+". "+random.choice(eulogy))
+			print("\"I'VE GOT YOU NOW, "+name+"!\" \n\n[But the Sandman misses, instead killing "+member3+". "+random.choice(eulogy)+"]")
 			teamSize = 2
 		elif teamSize == 2:
-			print("\"THIS IS IT, YOU'RE DEAD, "+name+"!\" \n\n[The Sandman's arm dislodges, instead killing "+member2+". "+random.choice(eulogy))
+			print("\"THIS IS IT, YOU'RE DEAD, "+name+"!\" \n\n[The Sandman's arm dislodges, instead killing "+member2+". "+random.choice(eulogy)+"]")
 			teamSize = 1
 			countdown+= 3
 		elif teamSize == 1:
-			print("\"YOU'RE DEAD, "+name+"!\" \n\n[But the Sandman's aim is hindered, instead killing "+member1+". "+random.choice(eulogy))
+			print("\"YOU'RE DEAD, "+name+"!\" \n\n[But the Sandman's aim is hindered, instead killing "+member1+". "+random.choice(eulogy)+"]")
 			teamSize = 0
 		else:
 			print("\"TAKE THIS!\" [The Sandman smites you where you stand]")
 			countdown+=1
 			HP -= random.choice([1,2])
 	if choice==1:
-		time.sleep(1)
+		time.sleep(3)
 		print("\n\n")
 		if teamSize == 3:
 			print("["+random.choice([member1+"strikes",member2+"strikes",member3+"strikes","You strike"])+" the Sandman with "+random.choice(dumbWeapon)+". It inflicts visible damage.]")
@@ -872,7 +873,7 @@ def finalConv(): # final confrontation with Sandman (REVELATIONS!) Leads to "goo
 		time.sleep(1)
 		print("Do you know how many people are out there having nightmares right now?")
 		time.sleep(2)
-		print("Millions.")
+		print("Billions.")
 		time.sleep(1)
 		print("But you don't care. Do what you must.")
 		time.sleep(2)
