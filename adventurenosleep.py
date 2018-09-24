@@ -35,7 +35,7 @@
 #	exit program: https://stackoverflow.com/questions/48129942/python-restart-program
 #	restart self: https://stackoverflow.com/questions/11329917/restart-python-script-from-within-itself
 #	catch file name changes: https://stackoverflow.com/questions/32536129/python-try-except-oserror-errno-2, https://docs.python.org/2/library/os.path.html#os.path.isfile
-#	playtesters: Anan Aramthanapon
+#	playtesters: Anan Aramthanapon, Knute Broady
 # On my Honor, I have neither given nor received unauthorized aid.
 
 import random # for RNG game mechanics
