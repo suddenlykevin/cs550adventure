@@ -205,7 +205,7 @@ def suppliesGather(): # Where the player chooses his item of choice and can inte
 	countdown -= 3
 	watchLook()
 	if itemOfChoice!=0:
-		print("[Whaddayaknow? The supply room is empty now. Programmers must've run out of time. Return to the Armory?]")
+		print("\n[Whaddayaknow? The supply room is empty now. Programmers must've run out of time. Return to the Armory?]")
 		choice = check("yes","no")
 		if choice == "yes":
 			time.sleep(0.7)
@@ -380,7 +380,7 @@ def teamMembers(): # player chooses (mostly useless) team members
 # functions that contribute to the path taken (and bulk of the game progression)
 
 def roadFork(rep): # a way to induce choice between paths, rep indicates which choices are given
-	global countdown
+	global countdown, rubberChicken
 	time.sleep(2)
 	print("""\n\n\n[FORK IN THE ROAD]
       .-.  .-.
@@ -393,13 +393,14 @@ def roadFork(rep): # a way to induce choice between paths, rep indicates which c
 	print("\n\n\""+random.choice(threat)+name.upper()+"!\"")
 	time.sleep(0.7)
 	print("\n[The Sandman's voice booms in the distance.]") 
-	if rubberChicken == 1:
+	if rubberChicken == 1: # if player has rubber chicken on first run, it will glow!
 		print("[The rubber chicken you took from Dirtcheap begins to glow. Use it?]")
 		choice = check("yes","no")
 		if choice == "yes":
 			deaths(3)
 		else:
-			print("[You put the rubber chicken away. Not today, rubber industry. Not today.]")
+			print("[You throw the rubber chicken away. Not today, rubber industry. Not today.]")
+			rubberChicken = 0
 	time.sleep(1)
 	print("[You come to a fork in the road. It looks familiar. Which path do you choose?")
 	if rep == 0:
@@ -661,7 +662,7 @@ _____/'.-..___________________________ mvn,, ___________________
 	watchLook()
 	time.sleep(2)
 	print("[The road is empty. There are footsteps ahead of you in the shape of ruby slippers, lion paws, tin cans, and wooden dowels. You wonder what happened here.]")
-	forkRoad(2)
+	roadFork(2)
 
 def rainbowRoad(): # rainbow road to skip to boss battle or end the game.
 	global countdown, HP
@@ -881,20 +882,20 @@ def finalConv(): # final confrontation with Sandman (REVELATIONS!) Leads to "goo
 		else: 
 			print("2: Walk away.]")
 		choice = checkNum(1,2)
-		if choice == 1:
-			deaths(10)
+		if choice==1:
+			pass
 		elif choice==2 and itemOfChoice==1:
 			deaths(11)
 		else:
 			deaths(12)
 	else:
 		print("\n\n\"you--")
-		if itemOfChoice == 2:
-			deaths(7)
-		elif itemOfChoice == 3:
-			deaths(8)
-		else:
-			deaths(9)
+	if itemOfChoice == 2:
+		deaths(7)
+	elif itemOfChoice == 3:
+		deaths(8)
+	else:
+		deaths(9)
 
 def altConv(): # if fight choice = talk it out (REVELATIONS!)
 	time.sleep(2)
@@ -947,6 +948,7 @@ def altConv(): # if fight choice = talk it out (REVELATIONS!)
 # All the endings and ending option functions
 
 def deaths(number): # player death dialogues
+	global HP
 	print("\n\n")
 	if number == 1:
 		print("[The dream world around you fades as you feel a gentle beeping in your mind. The countdown has run out. You wake up 3 hours late.]")
@@ -954,21 +956,24 @@ def deaths(number): # player death dialogues
 		print("[on a Sunday.]")
 		time.sleep(2)
 		print("[Yet the Sandman knows no mercy! A plume of sand descends upon you, suffocating you. You die.]")
+		HP = 0
 	elif number == 2:
 		print("[Your HP has run out. You have died, both in your dream and in the real world. Shame.]")
+		HP = 0
 	elif number == 3:
 		print("[You swing the rubber chicken wildly until its cries fill the dense air. You wake up, relieved, yet strangely unsatisfied. Boring.]")
 	elif number == 4:
 		print("[The Cheshire Cat waves its arms wildly and dissolves into the air. You wake up, relieved, yet strangely unsatisfied.]")
 	elif number == 5:
 		print("[The world arounds you slowly fades away. You have died of dysentery.]")
+		HP = 0
 	elif number == 6:
 		print("[Lakitu raises his glowing fishing rod and yanks you high into the air. You wake up, exhilerated by the ride.]")
 	elif number == 7:
 		print("[You use your Red Brick to bash the Sandman's head in, lifting his curse. You wake up, satisfied.]")
 	elif number == 8:
 		print("[You use your Super Soaker to soak the Sandman's body. He caves into himself and disappears. You wake up, satisfied.]")
-	elif number==9 or number==10:
+	elif number==9:
 		print("[You jab your fist into the Sandman's chest. He looks up at you with welling eyes. He is dead. You wake up, satisfied.]")
 	elif number == 11:
 		print("[You return the Sand Bag to the Sandman.]")
@@ -1021,9 +1026,9 @@ def credits(): # end credits
 	time.sleep(1)
 	print("\nProgramming Advisors: Ms. Healey, StackOverflow, and GeeksforGeeks")
 	time.sleep(2)
-	print("\n\nPlaytesting: You")
+	print("\n\nPlaytesting: You\n")
 	time.sleep(1)
-	os.exit(0)
+	sys.exit(0)
 
 def restart(): # function for restarting the program (calling python file again)
 	pyName = "adventure.py"
@@ -1052,7 +1057,7 @@ def check(*argv): # variable arguments https://www.geeksforgeeks.org/args-kwargs
 	for arg in argv: # adds an option for every argument in the function (underutilized, but hey, it's there!)
 		print(arg, end = "")
 		if argv.index(arg) < (len(argv)-2):
-			print(", ", end = " ")
+			print(",", end = " ")
 		elif argv.index(arg) == (len(argv)-2):
 			print(", or", end = " ")
 		elif argv.index(arg) == (len(argv)-1):
