@@ -699,7 +699,7 @@ def rainbowRoad(): # rainbow road to skip to boss battle or end the game.
 	else:
 		answer = input("\n\nWhat starts with an 'e', ends with an 'e,' and contains one letter?\n\n[one word]\n>>> ")
 		# time.sleep(0.5)
-		if answer.lower() == "letter":
+		if answer.lower() == "envelope":
 			print("\n\nCorrect! Here you go....")
 			# time.sleep(1)
 			deaths(6)
